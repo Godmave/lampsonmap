@@ -2,8 +2,8 @@
 {
   "name": "lampsonmap",
   "title": "Lamps on Map (0.16)",
-  "version": "0.0.1",
-  "date": "15-05-2018",
+  "version": "0.0.2",
+  "date": "01-06-2018",
   "author": "Godmave",
   "dependencies": ["base >= 0.16"],
   "factorio_version": "0.16",

@@ -128,7 +128,7 @@ end
 
 
 function update_lamp_in_dictionary(entity, old_tile_name)
-    if global_last_added[entity.unit_number] and (global_current_tick - global_last_added[entity.unit_number] < 60) then
+    if global_last_added[entity.unit_number] and (global_current_tick - global_last_added[entity.unit_number] < 30) then
         return
     end
 
@@ -394,7 +394,6 @@ function save_to_global()
                 }
                 count = count + 1
             end
-            --start_index = start_index + counttable_length_1(global.lamps_dictionary)
         end
     end
     print("Lamps On Map has been saved")
@@ -439,6 +438,7 @@ end
 
 main_coroutine = function(start_index, surface_name)
     local count = 1
+
     for colored_lamp_entity_index, colored_lamp_entity in next,global_lamps_dictionary[surface_name], start_index do
         if count > lamps_per_iteration then break end
         end_index = colored_lamp_entity_index
@@ -465,22 +465,15 @@ draw_coroutine = function(lamps_for_update, surface_name)
             end
         end
         game.surfaces[surface_name].set_tiles(lua_tile_array, false)
---        for _, force_name in next, get_forces_to_update(), nil do
---            for __, tile_item in next, lua_tile_array, nil do
---                if not game.forces[force_name].is_chunk_charted(game.surfaces[surface_name], tile_item.position) then
---                    game.forces[force_name].chart(game.surfaces[surface_name], {tile_item.position,tile_item.position})
---                end
---            end
---        end
     end
 end
 
-
+lastLampIndexed = 1
 function on_regular_checking(event_args)
     global_current_tick = event_args.tick
     if event_args.tick % iteration_frequency == 0 then
         for _, surface_name in next, get_surfaces_to_update(), nil do
-            lastLampIndexed = main_coroutine(lastLampIndexed or 1, surface_name)
+            lastLampIndexed = main_coroutine(lastLampIndexed, surface_name)
         end
     elseif event_args.tick % (iteration_frequency + 1) == 0 then
         for _, surface_name in next, get_surfaces_to_update(), nil do
