@@ -439,6 +439,10 @@ end
 main_coroutine = function(start_index, surface_name)
     local count = 1
 
+    if not (global_lamps_dictionary and global_lamps_dictionary[surface_name] and table_size(global_lamps_dictionary[surface_name])>0)  then
+        return
+    end
+
     for colored_lamp_entity_index, colored_lamp_entity in next,global_lamps_dictionary[surface_name], start_index do
         if count > lamps_per_iteration then break end
         end_index = colored_lamp_entity_index

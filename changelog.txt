@@ -1,0 +1,9 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.0.2
+
+- just make the old version work in 0.17 and fix on crash
+
+Version: 0.0.1
+Date: ?
+
+    Initial release
